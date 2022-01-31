@@ -1,10 +1,203 @@
+* {
+    margin: 0;
+    padding: 0;
+}
 
 
-
-/* Start Button */
-
-.start-btn {
+body {
     font-family: monospace;
-    background-color: black;
+    font-size: 10px;
+}
+
+
+/* Font Styles */
+
+h1 {
+font-size: 3em;
+text-transform: uppercase;
+color: white;
+padding-bottom: 20px;
+
+}
+
+h3 {
     color: white;
+    line-height: 1.4em;
+}
+
+
+/* Flexbox */
+
+.flex-center {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    display:flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 100vh;
+    margin-right: 20px;
+    margin-left: 20px;
+}
+
+
+/* General Styles */
+.dark-bg {
+    background-color: #282521;
+}
+
+
+
+
+/* ------------ Instruction Area ----------- */
+
+#instructions {
+    width: 330px;
+    height: 600px;
+    text-align: center;
+    border: solid 1px white;
+    padding: 50px 50px;
+
+}
+
+.instructions-img {
+    margin-top: 20px;
+    width: 400px;
+    height: auto;
+}
+
+#start-btn {
+    font-family: monospace;
+    background-color: darkgrey;
+    font-size: 1.4em;
+    color: #282521;
+    text-decoration: none;
+    padding: 10px 30px;
+    margin-top: 30px;
+    margin-bottom: 50px;
+    box-shadow: none;
+}
+
+
+/* -------------- Scoreboard -------------- */
+
+.canvas-box {
+    display:flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    border: solid 1px white;
+}
+
+.scoreboard {
+    border-right: solid 1px white;
+    border-top: solid 1px white;
+    border-bottom: solid 1px white;
+    width: 50px;
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+
+/* Timer */
+
+.timer {
+    text-transform: uppercase;
+    color: white;
+    font-size: 1.6em;
+    margin: 0;
+    border-bottom: solid 1px white;
+    height: 30px;
+    width: 50px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Star & Planet Counters */
+
+.star-count {
+    border-bottom: solid 1px white;
+    width: 50px;
+    padding-top: 17px;
+    padding-bottom: 5px;
+}
+
+.planet-count {
+    border-bottom: solid 1px white;
+    width: 50px;
+    padding-top: 17px;
+    padding-bottom: 5px;
+}
+
+.star-count img {
+    width: 17px;
+    margin-bottom: 7px;
+    
+}
+
+.planet-count img {
+    width: 30px;
+    margin-bottom: 7px;
+}
+
+star-count h3 {
+    text-transform: uppercase;
+    text-align: center;
+}
+
+planet-count h3 {
+    text-transform: uppercase;
+    text-align: center;
+}
+
+
+
+
+
+
+/* Fuel Gauge */
+
+.fuel-gauge {
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.fuel-bar {
+    border: solid 1px white;
+    width: 20px;
+    height: 150px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: center;
+    align-items: center;
+}
+
+.fuel-gauge h3 {
+    text-transform: uppercase;
+    text-align: center;
+    margin-top: -10px;
+    margin-bottom: 10px;
+}
+
+.fuel-bar-block {
+    width: 18px;
+    height: 18.5px;
+}
+
+
+
+.purple-fill {
+    background-color: rgb(230, 173, 253);
 }
