@@ -20,6 +20,7 @@ class Game {
       this.intervalId = null;
       this.gameRunning = false;
       this.stuck = false;
+      this.rocketY = 260;
     }
 
     start() {
@@ -46,14 +47,23 @@ class Game {
         controls.keyboardEvents();
 
         this.intervalId = setInterval(() => {
-            this.updateMoon();
+            if(!this.gameRunning && this.timer > 0){
+                this.rocket.src = "/Images/Rocket-With-Spaceman.png";
+                this.ctx.drawImage(this.rocket, 695, 260, 120, 250);
+                setTimeout(() => {
+                    this.rocketFly();
+
+                }, 2000)
+            } else {
+                this.updateMoon();
+            }
           }, 1000 / 60);
 
     }
 
     updateMoon() {
 
-        if (!this.gameRunning) {
+        if (!this.gameRunning && this.timer === 0) {
             this.gameOverScreen();
         } else {
 
@@ -100,13 +110,13 @@ class Game {
 
     createStars() {
 
-        if (this.frames % 150 === 0) {
+        if (this.frames % 170 === 0) {
             this.stars.push(new Star(this));
         }
     }
 
     createPlanets() {
-        if (this.frames % 250 === 0) {
+        if (this.frames % 300 === 0) {
             this.planets.push(new Planet(this));
         }
     }
@@ -120,7 +130,12 @@ class Game {
 
 
     checkCatchStar(star) {
-        let caught = this.spaceman.catchStars(star)
+        let starToRemove = null;
+            const spaceman = this.spaceman;
+            const caught = this.stars.some((star) => {
+                starToRemove = star;
+                return spaceman.catchStars(star)
+            });
         if (caught) {
             this.starCount++;
             this.removeStar(star);
@@ -230,10 +245,8 @@ class Game {
         if (this.fuel >= 160 && this.timer > 0) {
             this.rocket.src = "/Images/Rocket-With-Spaceman.png";
             this.ctx.drawImage(this.rocket, 695, 260, 120, 250);
-            this.spaceman = null;
-            this.timer = 0;
-
-            setTimeout(this.rocketFly, 2000);
+            this.spaceman.x = -150;
+            this.gameRunning = false;
 
             
         } else {
@@ -243,11 +256,22 @@ class Game {
 }
 
     rocketFly() {
-        this.rocket.y ++;
-}
+        setInterval(() => {
 
 
- updateTimer () {
+                this.rocket.src = "/Images/Rocket-Flying.png";
+                this.moonBackground();
+                this.ctx.drawImage(this.rocket, 695, this.rocketY, 120, 350);
+            this.rocketY--;
+        }, 100)
+            };
+    
+
+ updateTimer (){
+    if (!this.gameRunning) {
+        return;
+    }
+    
     let minutes = document.querySelector('.minutes h5');
     if (this.timer > 60) {
       minutes.innerHTML = '01:'
