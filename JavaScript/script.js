@@ -1,10 +1,15 @@
 window.onload = () => {
+  let game = null;
+  
     document.getElementById('start-btn').onclick = () => {
+      
+      if (!game) {
       startGame();
+    }
     };
   
     function startGame() {
-      const game = new Game();
+      game = new Game();
       game.start();
     }
   };

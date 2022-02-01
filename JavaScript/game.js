@@ -14,25 +14,31 @@ class Game {
       this.planetCount = 0;
       this.fuel = 0;
       this.rocket = new Image();
-      this.timer = 61;
+      this.timer = 60;
       this.canvasWidth = 900;
       this.canvasHeight = 700;
       this.intervalId = null;
+      this.gameRunning = false;
+      this.stuck = false;
     }
 
     start() {
         
         this.spaceman = new Spaceman(this, 380, 420, 120, 150);
+        this.gameRunning = true;
 
         setInterval(() => {
 
 
             if (this.timer === 0) {
-                return
+                this.timer = 0;
             } else {
                 this.timer--;
+                this.stuck = false;
         
             }
+            
+            this.updateTimer();
             
         }, 1000);
         
@@ -47,33 +53,42 @@ class Game {
 
     updateMoon() {
 
+        if (!this.gameRunning) {
+            this.gameOverScreen();
+        } else {
+
         this.moonBackground();
         this.theRocket();
         this.spaceman.draw();
         this.createStars();
         this.createPlanets();
+        this.createAliens();
         this.stars.forEach((star) => {
             star.y += Math.floor(Math.random() * 7);
             star.draw();
             this.checkCatchStar(star);
+
          });
          this.planets.forEach((planet) => {
             planet.y += Math.floor(Math.random() * 10);
             planet.draw();
-         });   
+            this.checkCatchPlanet(planet)
+         });
 
          this.aliens.forEach((alien) => {
-            aliens.x += Math.floor(Math.random() * 10);
-            aliens.draw();
-         });   
+            alien.x ++;
+            alien.draw();
+            if (this.timer % 3 === 0 || this.timer % 4 === 0) {
+            alien.beam();
+            this.checkBeamHit(alien)
+        }
 
+         }); 
 
         this.frames ++;
-        this.checkCatchPlanet();
         this.updateFuelGauge();
-        this.updateTimer();
-        // this.checkGameOver();
-
+        this.checkGameOver();
+        }
 
     }
 
@@ -85,29 +100,28 @@ class Game {
 
     createStars() {
 
-        if (this.frames % 300 === 0) {
+        if (this.frames % 150 === 0) {
             this.stars.push(new Star(this));
         }
     }
 
     createPlanets() {
-        if (this.frames % 600 === 0) {
+        if (this.frames % 250 === 0) {
             this.planets.push(new Planet(this));
         }
     }
 
-    // createAliens() {
-    //     if (this.frames % 850 === 0) {
-    //         this.aliens.push(new Alien(this));
-    //     }
-    // }
+    createAliens() {
+        if (this.frames % 1500 === 0) {
+            this.aliens.push(new Alien(this));
+        }
+    }
 
 
 
     checkCatchStar(star) {
         let caught = this.spaceman.catchStars(star)
         if (caught) {
-            console.log('colided')
             this.starCount++;
             this.removeStar(star);
             this.updateStarCount();
@@ -125,7 +139,6 @@ class Game {
                 return spaceman.catchPlanets(planet);
             });
             if (caught) {
-                console.log('colided')
                 this.planetCount++;
                 this.removePlanet(planetToRemove);
                 this.updatePlanetCount();
@@ -134,6 +147,20 @@ class Game {
                 
         }
     }
+
+    checkBeamHit() {
+        const spaceman = this.spaceman;
+        const hit = this.aliens.some((alien) => {
+            return spaceman.beamHit(alien);
+        });
+    
+        if (hit) {
+
+            console.log('BEAM HIT');
+            this.stuck = true;      
+
+    }
+}
 
     removeStar(star) {
         let thisStar = this.stars.indexOf(star);
@@ -194,7 +221,6 @@ class Game {
             break;
         case (this.fuel >= 20):
             blockOne.classList.add('purple-fill');
-            console.log('block one')
             break;
 
     }}
@@ -205,6 +231,9 @@ class Game {
             this.rocket.src = "/Images/Rocket-With-Spaceman.png";
             this.ctx.drawImage(this.rocket, 695, 260, 120, 250);
             this.spaceman = null;
+            this.timer = 0;
+
+            setTimeout(this.rocketFly, 2000);
 
             
         } else {
@@ -213,30 +242,52 @@ class Game {
         }
 }
 
+    rocketFly() {
+        this.rocket.y ++;
+}
+
 
  updateTimer () {
     let minutes = document.querySelector('.minutes h5');
     if (this.timer > 60) {
       minutes.innerHTML = '01:'
     } else {
-      minutes.innerHTML = '00:'
+        minutes.innerHTML = '00:'
         let decimals = document.querySelector('.decimals h5');
         let units = document.querySelector('.units h5');
-        let updateDecimals = decimals.innerText;
-        let updateUnits = units.innerText;
         let timeToString = this.timer.toString();
 
-        updateDecimals = '7';
-        updateUnits = '8';
-        
+        if (this.timer < 10) {
+            decimals.innerText = 0;
+            units.innerText = timeToString[0];
+    
+        } else {
+            decimals.innerText = timeToString[0];
+            units.innerText = timeToString[1];
+            
+        }
 
  }}
 
-// checkGameOver() {
-//     if (this.timer === 0 && this.fuel < 160) {
-//         clearInterval(this.intervalId);
-//         console.log('GAME OVER')
-//     }
-// }
+checkGameOver() {
+    if (this.timer === 0 && this.fuel < 160) {
+
+        this.ctx.clearRect(0 , 0 ,this.canvasWidth, this.canvasHeight);
+        this.spaceman= null;
+        this.aliens = null;
+        this.stars = null;
+        this.planets = null;
+    
+        this.gameRunning = false;
+        
+    }
+}
+
+
+gameOverScreen() {
+        this.background.src = "/Images/Game-Over.png";
+        this.ctx.drawImage(this.background, this.x, this.y, this.canvasWidth, this.canvasHeight);
+
+}
 
 }

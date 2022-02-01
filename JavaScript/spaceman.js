@@ -32,6 +32,11 @@ class Spaceman {
         return !(this.bottom() < planet.top() || this.top() > planet.bottom() || this.right() < planet.left() || this.left() > planet.right());
       }
 
+      beamHit(alien) {
+      return !(this.bottom() < alien.beamTop() || this.top() > alien.beamBottom() || this.right() < alien.beamLeft() || this.left() > alien.beamRight());
+      }
+
+
     draw() {
         if (this.direction === 'right'){
         this.img.src = '/Images/Spaceman-right.png';
