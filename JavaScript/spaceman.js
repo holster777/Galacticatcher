@@ -16,24 +16,24 @@ class Spaceman {
         return this.x + this.width;
       }
 
-      top() {
+    top() {
         return this.y;
       }
 
-      bottom() {
-        return this.x + this.height
+    bottom() {
+        return this.y + this.height
       }
 
-      catchStars(star) {
+    catchStars(star) {
         return !(this.bottom() < star.top() || this.top() > star.bottom() || this.right() < star.left() || this.left() > star.right()); 
       }
 
-      catchPlanets(planet) {
+    catchPlanets(planet) {
         return !(this.bottom() < planet.top() || this.top() > planet.bottom() || this.right() < planet.left() || this.left() > planet.right());
       }
 
-      beamHit(alien) {
-      return !(this.bottom() < alien.beamTop() || this.top() > alien.beamBottom() || this.right() < alien.beamLeft() || this.left() > alien.beamRight());
+    beamHit(alien) {
+        return !(this.bottom() < alien.beamTop() || this.top() > alien.beamBottom() || this.right() < alien.beamLeft() || this.left() > alien.beamRight());
       }
 
 

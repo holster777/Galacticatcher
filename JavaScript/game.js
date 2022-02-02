@@ -128,12 +128,12 @@ class Game {
 
 
     checkCatchStar(star) {
-        /* let starToRemove = null;
+            let starToRemove = null;
             const spaceman = this.spaceman;
             const caught = this.stars.some((star) => {
                 starToRemove = star;
                 return spaceman.catchStars(star)
-            }); */
+            }); 
         if (this.spaceman.catchStars(star)) {
             this.starCount++;
             this.catchSound.play(); 
@@ -256,23 +256,25 @@ class Game {
         
 }
 
+
+
     theSpacemanRocket () {
             console.log('spaceman rocket');
             this.spacemanRocket.src = "/Images/Rocket-With-Spaceman.png";
             this.ctx.drawImage(this.spacemanRocket, 695, 260, 120, 250);
 
-
-}
+    }
 
     rocketFly() {
         setInterval(() => {
+            if (this.rocketY > 0 -330) {
                 this.rocketY--;
                 this.moonBackground();
                 console.log('rocket flying');
                 this.rocketFlying.src = "Images/Rocket-Flying.png";
                 this.ctx.drawImage(this.rocketFlying, 695, this.rocketY, 120, 330);
                 
-        }, 10)
+        }}, 10) 
             };
 
 
@@ -304,11 +306,11 @@ class Game {
 
  checkWin() {
 
-    if (this.timer > 0 && this.fuel >= 50) {
+    if (this.timer > 0 && this.fuel >= 20) {
     
     clearInterval(this.intervalId);
     clearInterval(this.timerIntervalidId);
-    this.moonBackground();
+   
     this.theSpacemanRocket();
 
     setTimeout(() => {
