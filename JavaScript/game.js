@@ -260,8 +260,8 @@ class Game {
 
     theSpacemanRocket () {
             console.log('spaceman rocket');
-            this.spacemanRocket.src = "/Images/Rocket-With-Spaceman.png";
-            this.ctx.drawImage(this.spacemanRocket, 695, 260, 120, 250);
+            this.background.src = "/Images/Moon-with-Spaceman-in-Rocket.png";
+            this.ctx.drawImage(this.background, 0, 0, 900, 700);
 
     }
 
