@@ -14,13 +14,18 @@ class Game {
       this.planetCount = 0;
       this.fuel = 0;
       this.rocket = new Image();
+      this.spacemanRocket = new Image();
+      this.rocketFlying = new Image();
       this.timer = 60;
       this.canvasWidth = 900;
       this.canvasHeight = 700;
       this.intervalId = null;
+      this.timerIntervalidId = null;
       this.gameRunning = false;
       this.stuck = false;
-      this.rocketY = 260;
+      this.rocketY = 220;
+      this.beamSound = new Audio('/Sounds/mixkit-arcade-retro-jump-223.wav');
+      this.catchSound = new Audio('/Sounds/mixkit-video-game-treasure-2066.wav');
     }
 
     start() {
@@ -28,7 +33,7 @@ class Game {
         this.spaceman = new Spaceman(this, 380, 420, 120, 150);
         this.gameRunning = true;
 
-        setInterval(() => {
+       this.timerIntervalidId = setInterval(() => {
 
 
             if (this.timer === 0) {
@@ -47,16 +52,7 @@ class Game {
         controls.keyboardEvents();
 
         this.intervalId = setInterval(() => {
-            if(!this.gameRunning && this.timer > 0){
-                this.rocket.src = "/Images/Rocket-With-Spaceman.png";
-                this.ctx.drawImage(this.rocket, 695, 260, 120, 250);
-                setTimeout(() => {
-                    this.rocketFly();
-
-                }, 2000)
-            } else {
-                this.updateMoon();
-            }
+            this.updateMoon();
           }, 1000 / 60);
 
     }
@@ -79,6 +75,7 @@ class Game {
             this.checkCatchStar(star);
 
          });
+
          this.planets.forEach((planet) => {
             planet.y += Math.floor(Math.random() * 10);
             planet.draw();
@@ -97,6 +94,7 @@ class Game {
 
         this.frames ++;
         this.updateFuelGauge();
+        this.checkWin();
         this.checkGameOver();
         }
 
@@ -138,8 +136,10 @@ class Game {
             });
         if (caught) {
             this.starCount++;
+            this.catchSound.play(); 
             this.removeStar(star);
             this.updateStarCount();
+    
             
             return this.fuel += 5;
             
@@ -155,8 +155,10 @@ class Game {
             });
             if (caught) {
                 this.planetCount++;
+                this.catchSound.play(); 
                 this.removePlanet(planetToRemove);
                 this.updatePlanetCount();
+        
 
                 return this.fuel += 10;
                 
@@ -171,8 +173,9 @@ class Game {
     
         if (hit) {
 
-            console.log('BEAM HIT');
-            this.stuck = true;      
+            this.beamSound.play(); 
+            this.stuck = true;
+      
 
     }
 }
@@ -241,31 +244,30 @@ class Game {
     }}
 
     theRocket() {
-
-        if (this.fuel >= 160 && this.timer > 0) {
-            this.rocket.src = "/Images/Rocket-With-Spaceman.png";
-            this.ctx.drawImage(this.rocket, 695, 260, 120, 250);
-            this.spaceman.x = -150;
-            this.gameRunning = false;
-
-            
-        } else {
+    
             this.rocket.src = "/Images/Rocket-Empty.png";
             this.ctx.drawImage(this.rocket, 695, 260, 120, 250);
-        }
+        
+}
+
+    theSpacemanRocket () {
+            this.spacemanRocket.src = "/Images/Rocket-With-Spaceman.png";
+            this.ctx.drawImage(this.spacemanRocket, 695, 260, 120, 250);
+
+
 }
 
     rocketFly() {
         setInterval(() => {
-
-
-                this.rocket.src = "/Images/Rocket-Flying.png";
+                this.rocketY--;
                 this.moonBackground();
-                this.ctx.drawImage(this.rocket, 695, this.rocketY, 120, 350);
-            this.rocketY--;
-        }, 100)
+                console.log('rocket flying');
+                this.rocketFlying.src = "Images/Rocket-Flying.png";
+                this.ctx.drawImage(this.rocketFlying, 695, this.rocketY, 120, 320);
+                
+        }, 10)
             };
-    
+
 
  updateTimer (){
     if (!this.gameRunning) {
@@ -292,6 +294,23 @@ class Game {
         }
 
  }}
+
+ checkWin() {
+
+    if (this.timer > 0 && this.fuel >= 50) {
+    
+    clearInterval(this.intervalId);
+    clearInterval(this.timerIntervalidId);
+    this.moonBackground();
+    this.theSpacemanRocket();
+
+    setTimeout(() => {
+        this.rocketFly()
+        console.log('set timeout');
+    }, 2000);
+    
+    }}
+
 
 checkGameOver() {
     if (this.timer === 0 && this.fuel < 160) {
