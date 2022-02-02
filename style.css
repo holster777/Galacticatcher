@@ -60,8 +60,8 @@ h3 {
     height: 600px;
     text-align: center;
     border: solid 1px white;
-    margin-left: 10px;
     padding: 50px 50px;
+    margin-left: 10px;
 
 }
 
@@ -92,7 +92,6 @@ h3 {
     justify-content: flex-start;
     align-items: center;
     border: solid 1px white;
-    z-index: 0;
 }
 
 .scoreboard {
@@ -106,7 +105,7 @@ h3 {
     justify-content: space-between;
     align-items: center;
     z-index: 100;
-
+    position: absolute;
 }
 
 
@@ -164,10 +163,6 @@ planet-count h3 {
 }
 
 
-
-
-
-
 /* Fuel Gauge */
 
 .fuel-gauge {
@@ -198,7 +193,6 @@ planet-count h3 {
     width: 18px;
     height: 18.5px;
 }
-
 
 
 .purple-fill {

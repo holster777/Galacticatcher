@@ -24,7 +24,7 @@ class Star {
   
     draw() {
         this.img.src = '/Images/Star.png';
-        this.game.ctx.drawImage(this.img,this.x, this.y, this.width, this.height);
+        this.game.ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
 
     }
 
@@ -59,61 +59,3 @@ class Star {
         this.game.ctx.drawImage(this.img,this.x, this.y, this.width, this.height);
     }
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  // class Planet extends Star {
-  //   constructor(game) {
-
-  // }
-
-  //   draw() {
-  //     this.img.src = '/Images/Planet.png';
-  //       this.game.ctx.drawImage(this.img,this.x, this.y, this.width, this.height);
-  //   }
-
-  // }
-
-
-  // class Soldier {
-  //   constructor(health, strength) {
-  //     this.health = health;
-  //     this.strength = strength; }
-  //     attack(){
-  //       return this.strength;
-  //     }
-  //     receiveDamage(damage) {
-  //       this.health -= damage;
-  //     }
-  //   }
-  
-  // // Viking
-  // class Viking extends Soldier {
-  //   constructor(name,health,strength) {
-  //     super(health, strength);
-  //     this.name = name;
-  //   }
-  //   receiveDamage(damage) {
-  //     super.receiveDamage(damage);
-  //     if (this.health > 0) {
-  //       return(`${this.name} has received ${damage} points of damage`)
-  //     } else if (this.health <=0) {
-  //       return(`${this.name} has died in act of combat`)
-  //     }}
-  //     battleCry() {
-  //       return "Odin Owns You All!"
-  //     }
-  
-  //   }

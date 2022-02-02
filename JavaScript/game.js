@@ -128,17 +128,20 @@ class Game {
 
 
     checkCatchStar(star) {
-        let starToRemove = null;
+        /* let starToRemove = null;
             const spaceman = this.spaceman;
             const caught = this.stars.some((star) => {
                 starToRemove = star;
                 return spaceman.catchStars(star)
-            });
-        if (caught) {
+            }); */
+        if (this.spaceman.catchStars(star)) {
             this.starCount++;
             this.catchSound.play(); 
             this.removeStar(star);
             this.updateStarCount();
+
+            console.log(`star count: ${this.starCount}`);
+            console.log('Caught Star')
     
             
             return this.fuel += 5;
@@ -146,7 +149,7 @@ class Game {
         }
     }
 
-        checkCatchPlanet() {
+        checkCatchPlanet(planet) {
             let planetToRemove = null;
             const spaceman = this.spaceman;
             const caught = this.planets.some((planet) => {
@@ -158,6 +161,9 @@ class Game {
                 this.catchSound.play(); 
                 this.removePlanet(planetToRemove);
                 this.updatePlanetCount();
+
+                console.log(`planet count: ${this.planetCount}`);
+                console.log('Caught Planet')
         
 
                 return this.fuel += 10;
@@ -251,6 +257,7 @@ class Game {
 }
 
     theSpacemanRocket () {
+            console.log('spaceman rocket');
             this.spacemanRocket.src = "/Images/Rocket-With-Spaceman.png";
             this.ctx.drawImage(this.spacemanRocket, 695, 260, 120, 250);
 
@@ -263,7 +270,7 @@ class Game {
                 this.moonBackground();
                 console.log('rocket flying');
                 this.rocketFlying.src = "Images/Rocket-Flying.png";
-                this.ctx.drawImage(this.rocketFlying, 695, this.rocketY, 120, 320);
+                this.ctx.drawImage(this.rocketFlying, 695, this.rocketY, 120, 330);
                 
         }, 10)
             };
