@@ -5,11 +5,13 @@ window.onload = () => {
       
       if (!game) {
       startGame();
-    }
+    } 
+
     };
   
     function startGame() {
       game = new Game();
       game.start();
+      
     }
   };

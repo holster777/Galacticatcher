@@ -26,15 +26,18 @@ class Game {
       this.stuck = false;
       this.rocketY = 220;
       this.beamSound = new Audio('./docs/assets/sounds/mixkit-arcade-retro-jump-223.wav');
-      this.catchSound = new Audio('./docs/assets/sounds/mixkit-video-game-treasure-2066.wav');
+      this.catchSound = new Audio('./docs/assets/sounds/mixkit-video-game-mystery-alert-234.wav');
+      this.moonSound = new Audio('./docs/assets/sounds/mixkit-dark-cinematic-room-tone-3081.wav');
+      this.takeOff = new Audio('./docs/assets/sounds/mixkit-fast-rocket-whoosh-1714.wav')
     }
 
     start() {
         
         this.spaceman = new Spaceman(this, 380, 420, 120, 150);
         this.gameRunning = true;
+        this.moonSound.play();
 
-       this.timerIntervalidId = setInterval(() => {
+        this.timerIntervalidId = setInterval(() => {
 
 
             if (this.timer === 0) {
@@ -95,8 +98,6 @@ class Game {
 
         this.frames ++;
         this.updateFuelGauge();
-        // this.checkWin();
-        // this.checkGameOver();
         this.checkGameStatus()
         }
 
@@ -176,12 +177,20 @@ class Game {
     
         if (hit) {
 
-        this.beamSound.play(); 
+        this.beamSound.play();
         this.stuck = true;
+        this.beamUp();
       
 
     }
 }
+
+    beamUp() {
+
+        this.spaceman.y --;
+        this.spaceman.x ++;
+    }
+
 
     removeStar(star) {
         let thisStar = this.stars.indexOf(star);
@@ -317,6 +326,7 @@ class Game {
             this.aliens = null;
             this.stars = null;
             this.planets = null;
+            this.moonSound.pause();
         
             this.gameRunning = false;
 
@@ -329,6 +339,7 @@ class Game {
 
             this.moonBackground();
             this.winnerRocket();
+            this.moonSound.pause();
 
             clearInterval(this.intervalId);
             clearInterval(this.timerIntervalidId);
@@ -336,7 +347,11 @@ class Game {
 
             setTimeout(() => {
              this.rocketFly()
+             this.takeOff.play();
          }, 2000);
+         
+            this.gameRunning = false;
+
 
         }
 
@@ -347,38 +362,3 @@ class Game {
 
 
 }
-
-
-
- // checkWin() {
-
-    //     if (this.timer > 0 && this.fuel >= 20) {
-        
-    //     clearInterval(this.intervalId);
-    //     clearInterval(this.timerIntervalidId);
-
-    //     this.winnerRocket();
-    //     // this.rocketFly();
-
-    //     }}
-
-        // setTimeout(() => {
-        //     this.rocketFly()
-        // }, 2000);
-        
-        // }}
-
-
-    // checkGameOver() {
-    //     if (this.timer === 0 && this.fuel < 160) {
-
-    //         this.ctx.clearRect(0 , 0 ,this.canvasWidth, this.canvasHeight);
-    //         this.spaceman= null;
-    //         this.aliens = null;
-    //         this.stars = null;
-    //         this.planets = null;
-        
-    //         this.gameRunning = false;
-            
-    //     }
-    // }
