@@ -15,6 +15,7 @@ class Game {
       this.fuel = 0;
       this.rocket = new Image();
       this.spacemanRocket = new Image();
+      this.spacemanRocket.src = "/docs/assets/images/Rocket-With-Spaceman.png"
       this.rocketFlying = new Image();
       this.timer = 60;
       this.canvasWidth = 900;
@@ -70,14 +71,14 @@ class Game {
         this.createPlanets();
         this.createAliens();
         this.stars.forEach((star) => {
-            star.y += Math.floor(Math.random() * 7);
+            star.y += Math.floor(Math.random() * 9);
             star.draw();
             this.checkCatchStar(star);
 
          });
 
          this.planets.forEach((planet) => {
-            planet.y += Math.floor(Math.random() * 10);
+            planet.y += Math.floor(Math.random() * 12);
             planet.draw();
             this.checkCatchPlanet(planet)
          });
@@ -94,8 +95,9 @@ class Game {
 
         this.frames ++;
         this.updateFuelGauge();
-        this.checkWin();
-        this.checkGameOver();
+        // this.checkWin();
+        // this.checkGameOver();
+        this.checkGameStatus()
         }
 
     }
@@ -120,7 +122,7 @@ class Game {
     }
 
     createAliens() {
-        if (this.frames % 1500 === 0) {
+        if (this.frames % 1000 === 0) {
             this.aliens.push(new Alien(this));
         }
     }
@@ -217,10 +219,10 @@ class Game {
         
     switch (true) {
         
-        case (this.fuel >= 160):
+        case (this.fuel >= 180):
             blockEight.classList.add('purple-fill');
                 break;
-        case (this.fuel >= 140 ):
+        case (this.fuel >= 150 ):
             blockSeven.classList.add('purple-fill');
             break;
         case (this.fuel >= 120 ):
@@ -253,20 +255,14 @@ class Game {
 
     winnerRocket() {
 
-            this.moonBackground();
+            console.log('winner rocket');
             
-            this.spacemanRocket.src = "/docs/assets/images/Rocket-With-Spaceman.png";
+            //this.spacemanRocket.src = "/docs/assets/images/Rocket-With-Spaceman.png";
             this.ctx.drawImage(this.spacemanRocket, 695, 260, 120, 250);
+            console.log('rocket win');
 
 }
 
-//     theSpacemanRocket () {
-//             console.log('spaceman rocket');
-//             this.spacemanRocket.src = "/Images/Rocket-With-Spaceman.png";
-//             this.ctx.drawImage(this.spacemanRocket, 695, 260, 120, 250);
-
-
-// }
 
     rocketFly() {
         setInterval(() => {
@@ -306,24 +302,15 @@ class Game {
 
     }}
 
-    checkWin() {
 
-        if (this.timer > 0 && this.fuel >= 20) {
-        
-        clearInterval(this.intervalId);
-        clearInterval(this.timerIntervalidId);
+    gameOverScreen() {
+            this.background.src = "/docs/assets/images/Game-Over-Gold.png";
+            this.ctx.drawImage(this.background, this.x, this.y, this.canvasWidth, this.canvasHeight);
 
-        this.winnerRocket()
+    }
 
-        setTimeout(() => {
-            this.rocketFly()
-        }, 2000);
-        
-        }}
-
-
-    checkGameOver() {
-        if (this.timer === 0 && this.fuel < 160) {
+    checkGameStatus() {
+        if (this.timer === 0 && this.fuel < 180) {
 
             this.ctx.clearRect(0 , 0 ,this.canvasWidth, this.canvasHeight);
             this.spaceman= null;
@@ -332,15 +319,66 @@ class Game {
             this.planets = null;
         
             this.gameRunning = false;
-            
+
+        
+
         }
+
+        else if (this.timer > 0 && this.fuel >= 180) {
+        
+
+            this.moonBackground();
+            this.winnerRocket();
+
+            clearInterval(this.intervalId);
+            clearInterval(this.timerIntervalidId);
+    
+
+            setTimeout(() => {
+             this.rocketFly()
+         }, 2000);
+
+        }
+
+
+
     }
 
 
-    gameOverScreen() {
-            this.background.src = "/docs/assets/images/Game-Over.png";
-            this.ctx.drawImage(this.background, this.x, this.y, this.canvasWidth, this.canvasHeight);
-
-    }
 
 }
+
+
+
+ // checkWin() {
+
+    //     if (this.timer > 0 && this.fuel >= 20) {
+        
+    //     clearInterval(this.intervalId);
+    //     clearInterval(this.timerIntervalidId);
+
+    //     this.winnerRocket();
+    //     // this.rocketFly();
+
+    //     }}
+
+        // setTimeout(() => {
+        //     this.rocketFly()
+        // }, 2000);
+        
+        // }}
+
+
+    // checkGameOver() {
+    //     if (this.timer === 0 && this.fuel < 160) {
+
+    //         this.ctx.clearRect(0 , 0 ,this.canvasWidth, this.canvasHeight);
+    //         this.spaceman= null;
+    //         this.aliens = null;
+    //         this.stars = null;
+    //         this.planets = null;
+        
+    //         this.gameRunning = false;
+            
+    //     }
+    // }
