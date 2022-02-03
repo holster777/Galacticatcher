@@ -24,8 +24,8 @@ class Game {
       this.gameRunning = false;
       this.stuck = false;
       this.rocketY = 220;
-      this.beamSound = new Audio('/Sounds/mixkit-arcade-retro-jump-223.wav');
-      this.catchSound = new Audio('/Sounds/mixkit-video-game-treasure-2066.wav');
+      this.beamSound = new Audio('/docs/assets/sounds/mixkit-arcade-retro-jump-223.wav');
+      this.catchSound = new Audio('/docs/assets/sounds/mixkit-video-game-treasure-2066.wav');
     }
 
     start() {
@@ -102,8 +102,8 @@ class Game {
 
     moonBackground() {
     
-            this.background.src = "/Images/Moon-Surface-Black-Sky.png";
-            this.ctx.drawImage(this.background, this.x, this.y, this.canvasWidth, this.canvasHeight);
+        this.background.src = "/docs/assets/images/Moon-Surface-Black-Sky.png";
+        this.ctx.drawImage(this.background, this.x, this.y, this.canvasWidth, this.canvasHeight);
     }
 
     createStars() {
@@ -139,34 +139,29 @@ class Game {
             this.catchSound.play(); 
             this.removeStar(star);
             this.updateStarCount();
-
-            console.log(`star count: ${this.starCount}`);
-            console.log('Caught Star')
-    
-            
+        
             return this.fuel += 5;
             
         }
     }
 
-        checkCatchPlanet(planet) {
-            let planetToRemove = null;
-            const spaceman = this.spaceman;
-            const caught = this.planets.some((planet) => {
-                planetToRemove = planet;
-                return spaceman.catchPlanets(planet);
-            });
-            if (caught) {
-                this.planetCount++;
-                this.catchSound.play(); 
-                this.removePlanet(planetToRemove);
-                this.updatePlanetCount();
+    checkCatchPlanet(planet) {
+        let planetToRemove = null;
+        const spaceman = this.spaceman;
+        const caught = this.planets.some((planet) => {
 
-                console.log(`planet count: ${this.planetCount}`);
-                console.log('Caught Planet')
-        
+            planetToRemove = planet;
+            return spaceman.catchPlanets(planet);
+            
+        });
+            
+        if (caught) {
+            this.planetCount++;
+            this.catchSound.play(); 
+            this.removePlanet(planetToRemove);
+            this.updatePlanetCount();
 
-                return this.fuel += 10;
+            return this.fuel += 10;
                 
         }
     }
@@ -179,8 +174,8 @@ class Game {
     
         if (hit) {
 
-            this.beamSound.play(); 
-            this.stuck = true;
+        this.beamSound.play(); 
+        this.stuck = true;
       
 
     }
@@ -192,25 +187,25 @@ class Game {
 
      }
 
-     removePlanet(planet) {
+    removePlanet(planet) {
         let thisPlanet = this.planets.indexOf(planet);
         this.planets.splice(thisPlanet,1);
 
      }
 
-     updateStarCount() {
+    updateStarCount() {
          let currentStarCount = document.querySelector('.star-count h3');
          currentStarCount.innerHTML = this.starCount;
 
      }
 
-     updatePlanetCount() {
+    updatePlanetCount() {
         let currentPlanetCount = document.querySelector('.planet-count h3');
         currentPlanetCount.innerHTML = this.planetCount;
 
      }
 
-     updateFuelGauge() {
+    updateFuelGauge() {
          let blockOne = document.querySelector('.block-1');
          let blockTwo = document.querySelector('.block-2');
          let blockThree = document.querySelector('.block-3');
@@ -251,95 +246,101 @@ class Game {
 
     theRocket() {
     
-            this.rocket.src = "/Images/Rocket-Empty.png";
+            this.rocket.src = "/docs/assets/images/Rocket-Empty.png";
             this.ctx.drawImage(this.rocket, 695, 260, 120, 250);
         
 }
 
+    winnerRocket() {
+
+            this.moonBackground();
+            
+            this.spacemanRocket.src = "/docs/assets/images/Rocket-With-Spaceman.png";
+            this.ctx.drawImage(this.spacemanRocket, 695, 260, 120, 250);
+
+}
+
+//     theSpacemanRocket () {
+//             console.log('spaceman rocket');
+//             this.spacemanRocket.src = "/Images/Rocket-With-Spaceman.png";
+//             this.ctx.drawImage(this.spacemanRocket, 695, 260, 120, 250);
 
 
-    theSpacemanRocket () {
-            console.log('spaceman rocket');
-            this.background.src = "/Images/Moon-with-Spaceman-in-Rocket.png";
-            this.ctx.drawImage(this.background, 0, 0, 900, 700);
-
-    }
+// }
 
     rocketFly() {
         setInterval(() => {
             if (this.rocketY > 0 -330) {
                 this.rocketY--;
                 this.moonBackground();
-                console.log('rocket flying');
-                this.rocketFlying.src = "Images/Rocket-Flying.png";
+                this.rocketFlying.src = "/docs/assets/images/Rocket-Flying.png";
                 this.ctx.drawImage(this.rocketFlying, 695, this.rocketY, 120, 330);
                 
         }}, 10) 
             };
 
 
- updateTimer (){
-    if (!this.gameRunning) {
-        return;
-    }
-    
-    let minutes = document.querySelector('.minutes h5');
-    if (this.timer > 60) {
-      minutes.innerHTML = '01:'
-    } else {
-        minutes.innerHTML = '00:'
-        let decimals = document.querySelector('.decimals h5');
-        let units = document.querySelector('.units h5');
-        let timeToString = this.timer.toString();
-
-        if (this.timer < 10) {
-            decimals.innerText = 0;
-            units.innerText = timeToString[0];
-    
-        } else {
-            decimals.innerText = timeToString[0];
-            units.innerText = timeToString[1];
-            
+    updateTimer (){
+        if (!this.gameRunning) {
+            return;
         }
+        
+        let minutes = document.querySelector('.minutes h5');
+        if (this.timer > 60) {
+        minutes.innerHTML = '01:'
+        } else {
+            minutes.innerHTML = '00:'
+            let decimals = document.querySelector('.decimals h5');
+            let units = document.querySelector('.units h5');
+            let timeToString = this.timer.toString();
 
- }}
+            if (this.timer < 10) {
+                decimals.innerText = 0;
+                units.innerText = timeToString[0];
+        
+            } else {
+                decimals.innerText = timeToString[0];
+                units.innerText = timeToString[1];
+                
+            }
 
- checkWin() {
-
-    if (this.timer > 0 && this.fuel >= 20) {
-    
-    clearInterval(this.intervalId);
-    clearInterval(this.timerIntervalidId);
-   
-    this.theSpacemanRocket();
-
-    setTimeout(() => {
-        this.rocketFly()
-        console.log('set timeout');
-    }, 2000);
-    
     }}
 
+    checkWin() {
 
-checkGameOver() {
-    if (this.timer === 0 && this.fuel < 160) {
-
-        this.ctx.clearRect(0 , 0 ,this.canvasWidth, this.canvasHeight);
-        this.spaceman= null;
-        this.aliens = null;
-        this.stars = null;
-        this.planets = null;
-    
-        this.gameRunning = false;
+        if (this.timer > 0 && this.fuel >= 20) {
         
+        clearInterval(this.intervalId);
+        clearInterval(this.timerIntervalidId);
+
+        this.winnerRocket()
+
+        setTimeout(() => {
+            this.rocketFly()
+        }, 2000);
+        
+        }}
+
+
+    checkGameOver() {
+        if (this.timer === 0 && this.fuel < 160) {
+
+            this.ctx.clearRect(0 , 0 ,this.canvasWidth, this.canvasHeight);
+            this.spaceman= null;
+            this.aliens = null;
+            this.stars = null;
+            this.planets = null;
+        
+            this.gameRunning = false;
+            
+        }
     }
-}
 
 
-gameOverScreen() {
-        this.background.src = "/Images/Game-Over.png";
-        this.ctx.drawImage(this.background, this.x, this.y, this.canvasWidth, this.canvasHeight);
+    gameOverScreen() {
+            this.background.src = "/docs/assets/images/Game-Over.png";
+            this.ctx.drawImage(this.background, this.x, this.y, this.canvasWidth, this.canvasHeight);
 
-}
+    }
 
 }

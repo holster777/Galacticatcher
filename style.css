@@ -66,7 +66,7 @@ h3 {
 }
 
 .instructions-img {
-    margin-top: 20px;
+    margin-top: 15px;
     width: 400px;
     height: auto;
 }
@@ -89,6 +89,11 @@ h3 {
     outline-style: none;
     outline-width: 0px;
 }
+
+#start-btn:hover {
+    background-color:rgb(230, 173, 253);
+}
+
 
 
 /* -------------- Scoreboard -------------- */
