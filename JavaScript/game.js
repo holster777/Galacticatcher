@@ -15,7 +15,7 @@ class Game {
       this.fuel = 0;
       this.rocket = new Image();
       this.spacemanRocket = new Image();
-      this.spacemanRocket.src = "/docs/assets/images/Rocket-With-Spaceman.png"
+      this.spacemanRocket.src = "./docs/assets/images/Rocket-With-Spaceman.png"
       this.rocketFlying = new Image();
       this.timer = 60;
       this.canvasWidth = 900;
@@ -25,8 +25,8 @@ class Game {
       this.gameRunning = false;
       this.stuck = false;
       this.rocketY = 220;
-      this.beamSound = new Audio('/docs/assets/sounds/mixkit-arcade-retro-jump-223.wav');
-      this.catchSound = new Audio('/docs/assets/sounds/mixkit-video-game-treasure-2066.wav');
+      this.beamSound = new Audio('./docs/assets/sounds/mixkit-arcade-retro-jump-223.wav');
+      this.catchSound = new Audio('./docs/assets/sounds/mixkit-video-game-treasure-2066.wav');
     }
 
     start() {
@@ -104,7 +104,7 @@ class Game {
 
     moonBackground() {
     
-        this.background.src = "/docs/assets/images/Moon-Surface-Black-Sky.png";
+        this.background.src = "./docs/assets/images/Moon-Surface-Black-Sky.png";
         this.ctx.drawImage(this.background, this.x, this.y, this.canvasWidth, this.canvasHeight);
     }
 
@@ -248,7 +248,7 @@ class Game {
 
     theRocket() {
     
-            this.rocket.src = "/docs/assets/images/Rocket-Empty.png";
+            this.rocket.src = "./docs/assets/images/Rocket-Empty.png";
             this.ctx.drawImage(this.rocket, 695, 260, 120, 250);
         
 }
@@ -269,7 +269,7 @@ class Game {
             if (this.rocketY > 0 -330) {
                 this.rocketY--;
                 this.moonBackground();
-                this.rocketFlying.src = "/docs/assets/images/Rocket-Flying.png";
+                this.rocketFlying.src = "./docs/assets/images/Rocket-Flying.png";
                 this.ctx.drawImage(this.rocketFlying, 695, this.rocketY, 120, 330);
                 
         }}, 10) 
@@ -304,7 +304,7 @@ class Game {
 
 
     gameOverScreen() {
-            this.background.src = "/docs/assets/images/Game-Over-Gold.png";
+            this.background.src = "./docs/assets/images/Game-Over-Gold.png";
             this.ctx.drawImage(this.background, this.x, this.y, this.canvasWidth, this.canvasHeight);
 
     }

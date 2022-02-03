@@ -23,7 +23,7 @@ class Star {
     }
   
     draw() {
-        this.img.src = '/docs/assets/images/Star.png';
+        this.img.src = './docs/assets/images/Star.png';
         this.game.ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
 
     }
@@ -55,7 +55,7 @@ class Star {
     }
   
     draw() {
-        this.img.src = '/docs/assets/images/Planet.png';
+        this.img.src = './docs/assets/images/Planet.png';
         this.game.ctx.drawImage(this.img,this.x, this.y, this.width, this.height);
     }
   }

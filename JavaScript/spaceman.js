@@ -39,10 +39,10 @@ class Spaceman {
 
     draw() {
         if (this.direction === 'right'){
-        this.img.src = '/docs/assets/images/Spaceman-right.png';
+        this.img.src = './docs/assets/images/Spaceman-right.png';
 
         } else if (this.direction === 'left') {
-            this.img.src ='/docs/assets/images/Spaceman-left.png'
+            this.img.src ='./docs/assets/images/Spaceman-left.png'
         }
         this.game.ctx.drawImage(this.img,this.x, this.y, this.width, this.height);
     }

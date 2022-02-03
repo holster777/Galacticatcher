@@ -52,7 +52,7 @@ class Alien {
     }
   
     draw() {
-        this.img.src = '/docs/assets/images/Alien-Ship.png';
+        this.img.src = './docs/assets/images/Alien-Ship.png';
         this.game.ctx.drawImage(this.img,this.x, this.y, this.width, this.height);
 
     }
